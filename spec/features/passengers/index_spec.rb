@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'As a visitor' do
-  describe 'When I visit an airlines show page' do
+  describe 'When I visit a passengers index page' do
     before :each do
 
       @airline_1 = Airline.create!(name: 'Southwest')
@@ -18,10 +18,17 @@ RSpec.describe 'As a visitor' do
 
     end
 
-    it 'I see a unique list of passengers that have flights from that airline' do
-      visit("/airlines/#{@airline_1.id}")
-      @airline_1.unique_passengers.each do |passenger|
-        expect(page).to have_content(passenger, count: 1)
+    it 'I see the names of all passengers' do
+      visit('/passengers')
+      Passenger.all.each do |passenger|
+        expect(page).to have_content(passenger.name)
+      end
+    end
+
+    it 'And next to each name, I see the number of flights the passenger has' do
+      visit('/passengers')
+      Passenger.all.each do |passenger|
+        expect(page).to have_content(passenger.flight_count)
       end
     end
   end

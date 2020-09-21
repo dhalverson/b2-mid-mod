@@ -1,6 +1,6 @@
+<h3><%= @airline.name %>'s Passengers:</h3>
 <ul>
-  <h3>Passengers:</h3>
-    <% @airlines.passengers.each do |passenger| %>
-      <li><%= passenger.name %></li>
-    <% end %>
+  <% @airline.unique_passengers.each do |name| %>
+    <li><%= name %></li>
+  <% end %>
 </ul>

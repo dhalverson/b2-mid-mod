@@ -32,5 +32,23 @@ RSpec.describe 'As a visitor' do
         end
       end
     end
+
+    it 'I see a link to remove that passenger from that flight' do
+      visit('/flights')
+      within "#flight-#{@flight_2.id}" do
+        expect(page).to have_link('Remove Passenger')
+      end
+    end
+
+    it 'When I click that link, I am returned to the flights index page, and no longer see them listed for that flight' do
+      visit('/flights')
+      within "#flight-#{@flight_2.id}" do
+        click_link('Remove Passenger')
+      end
+      expect(current_path).to eq('/flights')
+      @flight_2.passengers.each do |passenger|
+        expect(page).to_not have_content(passenger.name)
+      end
+    end
   end
 end

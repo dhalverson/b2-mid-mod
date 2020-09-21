@@ -11,5 +11,4 @@ class FlightsController < ApplicationController
 
     redirect_to('/flights')
   end
-
 end
